@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 0;
+            text-align: center;
+        }
+
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav ul li {
+            display: inline;
+            margin-right: 20px;
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        #banner {
+            background: linear-gradient(to left top, #4CAF50, #FFC107);
+            color: #fff;
+            text-align: center;
+            padding: 100px 0;
+            height: calc(100vh - 120px); /* Adjusted height */
+            position: relative; /* Added positioning for child elements */
+        }
+
+        #banner h1 {
+            font-size: 3em;
+            margin-bottom: 20px;
+        }
+
+        #banner p {
+            font-size: 1.2em;
+        }
+
+        .banner-image {
+            position: absolute;
+            top: 50%;
+            right: 20px; /* Adjusted position */
+            transform: translateY(-50%);
+            max-width: 50%; /* Adjusted size */
+            height: auto; /* Maintain aspect ratio */
+        }
+
+        #content {
+            padding: 20px;
+            text-align: center;
+            min-height: calc(100vh - 240px); /* Adjusted min-height */
+        }
+
+        footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="#sign-in">Sign In</a></li>
+                <li><a href="#create-account">Create Account</a></li>
+                <li><a href="#book-shipment">Book Your Shipment</a></li>
+                <li><a href="#track-shipment">Track Your Shipment</a></li>
+                <li><a href="#about-us">About Us</a></li>
+                <li><a href="#profile">Profile</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#contact-us">Contact Us</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="banner">
+        <h1>Welcome to Our Shipping Service</h1>
+        <p>Delivering your parcels with care and precision.</p>
+        <img src="file:///E:/College/2nd%20year/4th%20sem/DBMS/app/src/main/resources/img/home_logo.png" alt="Banner Image" class="banner-image">
+
+    </section>
+
+    <section id="content">
+        <h2>About Our Services</h2>
+        <p>Placeholder for information about the services we offer, including domestic and international dispatch.</p>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 Shipping Service. All rights reserved.</p>
+    </footer>
+</body>
+</html>
