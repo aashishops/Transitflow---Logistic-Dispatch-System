@@ -1,0 +1,115 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+header {
+background: linear-gradient(to right, #9BAFD9, #103783); /* Use the same gradient as the banner */
+color: #fff;
+text-align: center;
+padding: 100px 0;
+position: relative;
+overflow: hidden;
+}
+.header-container {
+position: relative;
+overflow: hidden;
+}
+
+.header-container::before {
+content: "";
+position: absolute;
+left: 0;
+top: 0;
+width: 200%; /* Adjust as needed */
+height: 100%;
+background: #8dbdff;
+transform: rotate(-10deg); /* Creates a slope */
+transform-origin: top left;
+}
+
+.container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: -10px; /* Adjust padding as needed */
+    z-index: 1; /* Ensure it's on top of other content */
+}
+
+
+nav {
+display: flex;
+justify-content: right; /* Horizontally center the navigation */
+}
+
+nav ul {
+list-style: none;
+margin: 0;
+padding: 10;
+}
+
+nav ul li {
+display: inline;
+margin-right: 20px;
+}
+
+nav ul li a {
+color: #fff;
+text-decoration: none;
+font-size: 20px;
+font-weight: bold;
+padding: 0px 14px; 
+border-radius: 4px;
+transition: background-color 0.3s ease;
+margin-top: -3px; /* Decrease top margin to move text up */
+}
+
+
+
+nav ul li a:hover {
+background-color: rgba(255, 255, 255, 0.1);
+}
+
+
+#banner {
+    background: linear-gradient(to right, #9BAFD9, #103783); /* Gradient background */
+    color: #fff;
+    text-align: left;
+    padding: 120px 0; /* Increased padding for larger banner */
+    position: relative; /* Added positioning for child elements */
+    overflow: hidden; /* Hides the overflow for the curved effect */
+}
+
+#banner h1 {
+    font-size: 3em;
+    margin-bottom: 0px;
+}
+
+#banner p {
+    font-size: 1.2em;
+}
+
+.banner-image {
+    position: absolute;
+    top: 50%;
+    right:0px; /* Adjusted position */
+    transform: translateY(-50%);
+    max-width: 50%; /* Adjusted size */
+    height: 500px; /* Maintain aspect ratio */
+}
+
+#content {
+    padding: 20px;
+    text-align: center;
+    min-height: calc(100vh - 320px); /* Adjusted min-height */
+}
+
+footer {
+    background-color: #8dbdff; /* Set the background color to #8dbdff */
+    color: #fff;
+    text-align: center;
+    padding: 10px 0;
+    width: 100%;
+}

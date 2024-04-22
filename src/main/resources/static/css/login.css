@@ -1,0 +1,71 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(to right, #9BAFD9, #103783); /* Gradient background */
+}
+/* Setting font family and background color for the body */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2; /* Set your desired background color */
+}
+
+.header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 0px; /* Adjust padding as needed */
+    z-index: 0; /* Ensure it's on top of other content */
+}
+/* Container styles */
+.container {
+    max-width: 200px; /* Maximum width for the container */
+    margin: 0 auto; /* Centering the container horizontally */
+    padding: 30px 100px; /* Padding around the container */
+    background-color: #fff; /* Background color for the container */
+    border-radius: 10px; /* Rounded corners for the container */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Box shadow for the container */
+}
+
+/* Heading styles */
+.container h2 {
+    text-align: center; /* Centering the heading */
+}
+
+/* Form group styles */
+.form-group {
+    margin-bottom: 20px; /* Spacing between form groups */
+}
+
+.form-group label {
+    display: block; /* Making labels block-level elements */
+    font-weight: bold; /* Bold font weight for labels */
+}
+
+.form-group input {
+    width: 100%; /* Full width for input fields */
+    padding: 10px; /* Padding for input fields */
+    border: 1px solid #ccc; /* Border for input fields */
+    border-radius: 5px; /* Rounded corners for input fields */
+}
+
+/* Button styles */
+.form-group button {
+    width: 100%; /* Full width for buttons */
+    padding: 10px; /* Padding for buttons */
+    background-color: #007bff; /* Background color for buttons */
+    color: #fff; /* Text color for buttons */
+    border: none; /* No border for buttons */
+    border-radius: 5px; /* Rounded corners for buttons */
+    cursor: pointer; /* Cursor style for buttons */
+}
+
+/* Hover effect for buttons */
+.form-group button:hover {
+    background-color: #0056b3; /* Background color on hover */
+}
+

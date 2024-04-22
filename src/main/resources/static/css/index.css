@@ -1,0 +1,18 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(to right, #9BAFD9, #103783); /* Gradient background */
+}
+
+.header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 0px; /* Adjust padding as needed */
+    z-index: 0; /* Ensure it's on top of other content */
+}
