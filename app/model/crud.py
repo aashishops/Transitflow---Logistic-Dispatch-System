@@ -34,22 +34,17 @@ def convert_timestamp_values(values):
 
 
 # Function to insert values into a table
-def insert_values(table_name, form_data):
+# Adjusted insert_values function
+def insert_values(table_name, values):
     try:
         connection = establish_connection()
         cursor = connection.cursor()
-
-        # Convert timestamp values in the input
-        values = list(form_data.values())
-        values = convert_timestamp_values(values)
 
         # Prepare the insert statement
         insert_statement = f"INSERT INTO {table_name} VALUES ({', '.join([':' + str(i) for i in range(1, len(values) + 1)])})"
 
         # Execute the insert statement
         cursor.execute(insert_statement, values)
-
-        # Commit the transaction
         connection.commit()
 
         print("Values inserted successfully into table:", table_name)
@@ -63,6 +58,8 @@ def insert_values(table_name, form_data):
         cursor.close()
         connection.close()
 
+# Example usage:
+
 # Function to delete records from a table
 def delete_record(table_name, condition):
     try:
@@ -74,6 +71,7 @@ def delete_record(table_name, condition):
 
         # Execute the delete statement
         cursor.execute(delete_statement)
+        cursor.execute("commit")
 
         # Commit the transaction
         connection.commit()
@@ -145,6 +143,7 @@ def update_record(table_name, update_values, condition, condition_value):
 
         # Execute the update statement
         cursor.execute(update_statement, update_values)
+        cursor.execute("commit")
 
         # Commit the transaction
         connection.commit()
@@ -194,3 +193,7 @@ def update_record(table_name, update_values, condition, condition_value):
 # read_table("user1")
 # Read the table
 # read_table("ORIGIN_WAREHOUSE")
+
+
+insert_values("PACKAGE", ("CO012", "C001", "Chennai", "Bangalore", "abcdefgh", "12", "1x2x3", "I"))
+
