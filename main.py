@@ -22,6 +22,15 @@ async def read_root(request: Request):
     # Render HTML template using Jinja
     return templates.TemplateResponse("home.html", {"request": request})
 
+@app.get("/home", response_class=HTMLResponse)
+async def read_home(request: Request):
+    # Render HTML template using Jinja
+    return templates.TemplateResponse("home.html", {"request": request})
+
+@app.get("/home.html", response_class=HTMLResponse)
+async def redirect_about():
+    return RedirectResponse(url="/home")  # Redirect to the /about route
+
 @app.get("/about", response_class=HTMLResponse)
 async def read_about(request: Request):
     # Render HTML template using Jinja
