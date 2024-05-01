@@ -10,54 +10,51 @@
     <header>
         <div class="header">
             <a href="home.html">
-            <img src="{{ url_for('static', path='img/logo.png') }}" alt="Logo" style="position: absolute; z-index: 0; width: 400px; height: 120px; top : 20px;">
-        </a>
-            <img src="{{ url_for('static', path='img/Header.png') }}" alt="Header Image">
+                <img src="{{ url_for('static', path='img/logo.png') }}" alt="Logo" style="position: absolute; z-index: 0; width: 400px; height: 120px; top : 20px;">
+            </a>
+            <img src="{{ url_for('static', path='img/header.png') }}" alt="Header Image">
         </div>
-        <header>
+    </header>
     
     <div class="container">
         <h2>Book your Shipment</h2>
-        <form action="#" method="post">
+        <form id="shipment-form">
             <div class="form-group">
                 <label for="login-id">Courier Product</label>
-                <input type="text" id="login-id" name="login-id" placeholder="Enter your Product Name" required>
+                <input type="text" id="login-id" name="courier_product" placeholder="Enter your Product Name" required>
             </div>
             <div class="form-group">
                 <label for="description">Description</label>
                 <input type="text" id="description" name="description" placeholder="Enter any additional information">
             </div>
             <div class="form-group">
-                <label for="dimensions">Dimensions</label>
-                <input type="text" id="dimensions" name="dimensions" placeholder="Enter dimensions of the Parcel" required>
+                <label for="dimensions">Dimensions (Length x Width x Height)</label>
+                <input type="text" id="dimensions" name="dimensions" placeholder="Length x Width x Height" required pattern="\d+\s*x\s*\d+\s*x\s*\d+">
             </div>
             <div class="form-group">
                 <label for="weight">Weight</label>
-                <input type="text" id="weight" name="weight" placeholder="Enter weight of the Parcel" required>
+                <input type="number" id="weight" name="weight" placeholder="Enter weight of the Parcel" required>
+                <span id="weight-error" style="color: red; display: none;">Weight must be an integer</span>
             </div>
             <div class="form-group">
                 <label for="pickup-date">Pick Up Date</label>
-                <input type="date" id="pickup-date" name="pickup-date">
+                <input type="date" id="pickup-date" name="pickup_date">
             </div>
             <div class="form-group">
                 <label for="pickup-time">Pick Up Time</label>
-                <input type="time" id="pickup-time" name="pickup-time">
+                <input type="time" id="pickup-time" name="pickup_time">
             </div>
-
             <div class="form-group">
                 <label for="address">Address</label>
                 <textarea id="address" name="address" placeholder="Enter your address" required></textarea>
             </div>
-            
             <div class="form-group">
-                <a href="E:\College\2nd year\4th sem\DBMS\app\src\main\resources\templates\booked.html">
-                    <button type="button">Book</button>
-                </a>
+                <button type="submit">Book</button>
             </div>
         </form>
-        
-            </div>
-        </form>
+
+        <!-- Placeholder for the message -->
+        <div id="shipment-message"></div>
     </div>
     <script>
         document.getElementById('shipment-form').addEventListener('submit', function(event) {
@@ -73,17 +70,19 @@
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
-                return response.json();
+                return response.text();
             })
             .then(data => {
                 console.log('Success:', data);
-                // Do something with the response data if needed
+                
+                document.getElementById('shipment-message').textContent = data;
             })
             .catch(error => {
                 console.error('Error:', error);
-                // Handle errors
+                
             });
         });
-    </script>
-</body>
+    </script>    
+    
+    </body>
 </html>

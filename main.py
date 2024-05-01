@@ -1,9 +1,22 @@
 from fastapi import FastAPI, Request
-from fastapi.responses import HTMLResponse, RedirectResponse  # Import RedirectResponse
+from fastapi.responses import HTMLResponse, RedirectResponse, PlainTextResponse  # Add PlainTextResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 import os
+from fastapi.middleware.cors import CORSMiddleware
+
+# Add this line before defining your FastAPI app
+
 app = FastAPI()
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://127.0.0.1:8000"],  # Adjust this to match your frontend URL
+    allow_credentials=True,
+    allow_methods=["GET", "POST"],
+    allow_headers=["*"],
+)
+
+
 
 # Configure Jinja2Templates
 templates_dir = os.path.join(os.path.dirname(__file__), "templates")
@@ -12,8 +25,7 @@ templates = Jinja2Templates(directory=templates_dir)
 # Serve static files from the 'static' directory
 
 static_dir = os.path.join(os.path.dirname(__file__), "static")
-print("LOL"*10)
-print(static_dir)
+
 
 app.mount("/static", StaticFiles(directory=static_dir), name="static")
 
@@ -21,6 +33,16 @@ app.mount("/static", StaticFiles(directory=static_dir), name="static")
 async def read_root(request: Request):
     # Render HTML template using Jinja
     return templates.TemplateResponse("home.html", {"request": request})
+
+@app.post("/book-shipment/", response_class=PlainTextResponse)
+async def book_shipment(request: Request):
+    form_data = await request.form()
+    for field in form_data.keys():
+        print(f"Field: {field}, Value: {form_data[field]}")
+
+    message = f"Your shipment will be collected on {form_data['pickup_date']} at {form_data['pickup_time']} by our delivery executive."
+    return message
+
 
 @app.get("/home", response_class=HTMLResponse)
 async def read_home(request: Request):
