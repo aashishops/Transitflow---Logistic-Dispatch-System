@@ -59,10 +59,10 @@
     <script>
         document.getElementById('shipment-form').addEventListener('submit', function(event) {
             event.preventDefault();
-            
+    
             const formData = new FormData(this);
-            
-            fetch('http://localhost:8000/book-shipment/', {
+    
+            fetch('/book-shipment/', {
                 method: 'POST',
                 body: formData
             })
@@ -73,15 +73,14 @@
                 return response.text();
             })
             .then(data => {
-                console.log('Success:', data);
-                
-                document.getElementById('shipment-message').textContent = data;
+               console.log('Success:', data);
+        
+               document.getElementById('shipment-message').textContent = data;
             })
-            .catch(error => {
-                console.error('Error:', error);
-                
-            });
+           .catch(error => {
+               console.error('Error:', error);
         });
+   });
     </script>    
     
     </body>

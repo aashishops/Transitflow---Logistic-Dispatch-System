@@ -4,7 +4,8 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 import os
 from fastapi.middleware.cors import CORSMiddleware
-
+from app.model.customerid import generate_customer_id
+from app.model.crud import insert_values
 # Add this line before defining your FastAPI app
 
 app = FastAPI()
@@ -37,9 +38,10 @@ async def read_root(request: Request):
 @app.post("/book-shipment/", response_class=PlainTextResponse)
 async def book_shipment(request: Request):
     form_data = await request.form()
+    #customer_id = generate_customer_id()
     for field in form_data.keys():
         print(f"Field: {field}, Value: {form_data[field]}")
-
+    #insert_values("PACKAGE", form_data)
     message = f"Your shipment will be collected on {form_data['pickup_date']} at {form_data['pickup_time']} by our delivery executive."
     return message
 

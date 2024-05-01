@@ -34,12 +34,13 @@ def convert_timestamp_values(values):
 
 
 # Function to insert values into a table
-def insert_values(table_name, values):
+def insert_values(table_name, form_data):
     try:
         connection = establish_connection()
         cursor = connection.cursor()
 
         # Convert timestamp values in the input
+        values = list(form_data.values())
         values = convert_timestamp_values(values)
 
         # Prepare the insert statement
@@ -168,28 +169,28 @@ def update_record(table_name, update_values, condition, condition_value):
 
 # Read the table
 # read_table("ORIGIN_WAREHOUSE")
-print("Table :\n")
+# print("Table :\n")
+# # read_table("user1")
+
+# # update_record("ORIGIN_WAREHOUSE", {'Orig_Arrival_Time': '2024-04-10 12:34:56'}, "Orig_Arrival_Time = :timestamp_value", '2024-04-20 12:34:56')
+# # Delete a particular record
+# # delete_record("ORIGIN_WAREHOUSE", "Orig_Arrival_Time = :timestamp_value", '2024-04-10 12:34:56')
+
+# # delete_record("user1", "Login_ID = 'C012'")
+# print("deleted")
+# # Read the Dispatch Hub table after deletion
+# # read_table("user1")
+
+# # Update a record in the table with timestamp value
+# # Update a record in the user1 table
+# # Update a record in the user1 table
+# # Example usage:
 # read_table("user1")
+# print("updating")
+# update_values = {'Login_ID': 'A004', 'F_Name': 'David', 'L_Name': 'Wilson', 'Phone_no': 5556667777, 'Email_id': 'david.wilson@example.com', 'Password': 'admin456'}
+# update_values = convert_timestamp_values_in_dict(update_values)
+# update_record("user1", update_values, "Login_ID = :login_id", 'A003')
 
-# update_record("ORIGIN_WAREHOUSE", {'Orig_Arrival_Time': '2024-04-10 12:34:56'}, "Orig_Arrival_Time = :timestamp_value", '2024-04-20 12:34:56')
-# Delete a particular record
-# delete_record("ORIGIN_WAREHOUSE", "Orig_Arrival_Time = :timestamp_value", '2024-04-10 12:34:56')
-
-# delete_record("user1", "Login_ID = 'C012'")
-print("deleted")
-# Read the Dispatch Hub table after deletion
 # read_table("user1")
-
-# Update a record in the table with timestamp value
-# Update a record in the user1 table
-# Update a record in the user1 table
-# Example usage:
-read_table("user1")
-print("updating")
-update_values = {'Login_ID': 'A004', 'F_Name': 'David', 'L_Name': 'Wilson', 'Phone_no': 5556667777, 'Email_id': 'david.wilson@example.com', 'Password': 'admin456'}
-update_values = convert_timestamp_values_in_dict(update_values)
-update_record("user1", update_values, "Login_ID = :login_id", 'A003')
-
-read_table("user1")
 # Read the table
 # read_table("ORIGIN_WAREHOUSE")
