@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Log In Page</title>
-    <link rel="stylesheet" href="E:\College\2nd year\4th sem\DBMS\app\src\main\resources\static\css\index.css"> <!-- Link to your CSS file -->
+    <link rel="stylesheet" href="{{ url_for('static', path='css/index.css') }}"> <!-- Link to your CSS file -->
 </head>
 <body>
     <header>
@@ -12,7 +12,7 @@
             <a href="home.html">
             <img src="{{ url_for('static', path='img/logo.png') }}" alt="Logo" style="position: absolute; z-index: 0; width: 400px; height: 120px; top : 20px;">
         </a>
-            <img src="E:\College\2nd year\4th sem\DBMS\app\src\main\resources\static\img\Header.png" alt="Header Image">
+            <img src="{{ url_for('static', path='img/Header.png') }}" alt="Header Image">
         </div>
         <header>
     </div>
