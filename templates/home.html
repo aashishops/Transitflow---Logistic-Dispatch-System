@@ -4,15 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home Page</title>
-    <link rel="stylesheet" href="E:\College\2nd year\4th sem\DBMS\app\src\main\resources\static\css\home.css"> <!-- Link to your CSS file -->
+    <link rel="stylesheet" href="{{ url_for('static', path='css/home.css') }}"> <!-- Link to your CSS file -->
 </head>
 <body>
     <header>
         <div class="container">
-            <a href="file:///E:/College/2nd%20year/4th%20sem/DBMS/app/src/main/resources/templates/home.html">
-            <img src="E:\College\2nd year\4th sem\DBMS\app\src\main\resources\static\img\logo.png" alt="Logo" style="position: absolute; z-index: 0; width: 400px; height: 120px; top : 20px;">
+            <a href="/home.html">   
+                <img src="{{ url_for('static', path='img/logo.png') }}" alt="Logo" style="position: absolute; z-index: 0; width: 400px; height: 120px; top : 20px;">
         </a>
-            <img src="file:///C:/Users/aashi/Downloads/Group%201%20(1).png" alt="Header Image">
+            <img src="{{ url_for('static', path='img/header.png') }}"  alt="Header Image">
         </div>
 
         <div class="header-container">
@@ -31,7 +31,7 @@
     <section id="banner">
         <h1>&nbsp&nbsp&nbsp&nbsp&nbspWelcome to Our Shipping Service</h1>
         <p>&nbsp &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp Delivering your parcels with care and precision.</p>
-        <img src="E:\College\2nd year\4th sem\DBMS\app\src\main\resources\static\img\home_logo.png" alt="Banner Image" class="banner-image">
+        <img src="{{ url_for('static', path='img/home_logo.png') }}"" alt="Banner Image" class="banner-image">
     </section>
 
     <section id="content">

@@ -1,0 +1,83 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log In Page</title>
+    <link rel="stylesheet" href="E:/College/2nd year/4th sem/DBMS/app/src/main/resources/static/css/index.css">
+    <style>
+        /* Existing styles... */
+        body {
+            background-color: #ffffff; /* Set the background color to white */
+            color: #000000; /* Set the text color to black */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+        }
+        h1 {
+            color: #ffffff; /* Set the h1 text color to white */
+            font-size: 2rem;
+            line-height: 1.5;
+            margin: 0;
+        }
+        .word {
+            display: inline-block;
+            margin: 0 0.5rem;
+        }
+        /* Styles for the button */
+        .home-button {
+            display: inline-block;
+            font-size: 1.5rem;
+            text-decoration: none;
+            color: #234da6;
+            border: 2px solid #234da6 ;
+            padding: 10px 20px;
+            position: relative;
+            transition: all 0.3s ease;
+            overflow: hidden;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .home-button:after {
+            content: "→";
+            position: absolute;
+            top: 50%;
+            right: -20px;
+            transition: all 0.3s ease;
+        }
+
+        .home-button:hover {
+            background: #234da6;
+            color: #fff;
+        }
+
+        .home-button:hover:after {
+            right: 10px;
+        }
+    </style>
+</head>
+    <!-- Existing HTML... -->
+<body>
+    <div class="header">
+        <a href="home.html"></a>
+            <img src="E:/College/2nd year/4th sem/DBMS/app/src/main/resources/static/img/logo.png" alt="Logo" style="position: absolute; z-index: 0; width: 400px; height: 120px; top : 20px;">
+        </a>
+        <img src="E:/College/2nd year/4th sem/DBMS/app/src/main/resources/static/img/Header.png" alt="Header Image">
+    </div>
+    <h1><span class="word">THANK YOU</span></h1>
+    <h1><span class="word">FOR</span></h1>
+    <h1><span class="word">BOOKING</span></h1>
+    <h1><span class="word">YOUR COURIER</span></h1>
+    <h1><center>YOU CAN TRACK YOUR SHIPMENT IN TRACK YOUR SHIPMENT PAGE</center></h1>
+    <br>
+    <!-- Add the button -->
+    <a href="home.html" class="home-button">Go Back Home</a>
+
+    
+</body>
+</html>

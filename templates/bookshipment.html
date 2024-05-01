@@ -9,8 +9,8 @@
 <body>
     <header>
         <div class="header">
-            <a href="file:///E:/College/2nd%20year/4th%20sem/DBMS/app/src/main/resources/templates/home.html">
-            <img src="E:\College\2nd year\4th sem\DBMS\app\src\main\resources\static\img\logo.png" alt="Logo" style="position: absolute; z-index: 0; width: 400px; height: 120px; top : 20px;">
+            <a href="home.html">
+            <img src="{{ url_for('static', path='img/logo.png') }}" alt="Logo" style="position: absolute; z-index: 0; width: 400px; height: 120px; top : 20px;">
         </a>
             <img src="E:\College\2nd year\4th sem\DBMS\app\src\main\resources\static\img\Header.png" alt="Header Image">
         </div>
@@ -24,23 +24,38 @@
                 <input type="text" id="login-id" name="login-id" placeholder="Enter your Product Name" required>
             </div>
             <div class="form-group">
+                <label for="description">Description</label>
+                <input type="text" id="description" name="description" placeholder="Enter any additional information">
+            </div>
+            <div class="form-group">
                 <label for="dimensions">Dimensions</label>
                 <input type="text" id="dimensions" name="dimensions" placeholder="Enter dimensions of the Parcel" required>
             </div>
             <div class="form-group">
-                <label for="weightd">Weight</label>
+                <label for="weight">Weight</label>
                 <input type="text" id="weight" name="weight" placeholder="Enter weight of the Parcel" required>
             </div>
             <div class="form-group">
-                <label for="weightd">Pick Up Date</label>
-                <input type="date" id="pickup" name="pickup">
+                <label for="pickup-date">Pick Up Date</label>
+                <input type="date" id="pickup-date" name="pickup-date">
             </div>
             <div class="form-group">
-                <label for="weightd">Pick Up Time</label>
-                <input type="time" id="pickup" name="pickup">
+                <label for="pickup-time">Pick Up Time</label>
+                <input type="time" id="pickup-time" name="pickup-time">
             </div>
+
             <div class="form-group">
-                <button type="submit">Book</button>
+                <label for="address">Address</label>
+                <textarea id="address" name="address" placeholder="Enter your address" required></textarea>
+            </div>
+            
+            <div class="form-group">
+                <a href="E:\College\2nd year\4th sem\DBMS\app\src\main\resources\templates\booked.html">
+                    <button type="button">Book</button>
+                </a>
+            </div>
+        </form>
+        
             </div>
         </form>
     </div>
