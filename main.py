@@ -1,9 +1,8 @@
 from fastapi import FastAPI, Request
-from fastapi.responses import HTMLResponse
+from fastapi.responses import HTMLResponse, RedirectResponse  # Import RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 import os
-
 app = FastAPI()
 
 # Configure Jinja2Templates
@@ -27,3 +26,8 @@ async def read_root(request: Request):
 async def read_about(request: Request):
     # Render HTML template using Jinja
     return templates.TemplateResponse("about.html", {"request": request})
+
+@app.get("/about.html", response_class=HTMLResponse)
+async def redirect_about():
+    return RedirectResponse(url="/about")  # Redirect to the /about route
+
