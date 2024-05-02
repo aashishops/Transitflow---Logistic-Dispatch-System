@@ -6,7 +6,7 @@ import os
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi import HTTPException
 from app.model.generateid import generate_id
-from app.model.crud import insert_values,delete_record,read_table,update_record, read_specific_column
+from app.model.crud import insert_values,delete_record,read_table,update_records, read_specific_column
 from pydantic import BaseModel
 from typing import Optional
 from fastapi import Form
@@ -125,16 +125,28 @@ async def update_record(request: Request, courier_id: Optional[str] = None):
 
     return templates.TemplateResponse("updaterecord.html", {"request": request, "row_data": row_data})
 
-@app.post("/toupdateShipment",response_class=HTMLResponse)
+@app.post("/toupdateShipment", response_class=HTMLResponse)
 async def to_update_shipment(request: Request):
     form_data = await request.form()
+
+    # Print field-value pairs
     for field in form_data.keys():
         print(f"Field: {field}, Value: {form_data[field]}")
-    print("DONE")
-    keys_list = list(form_data.keys())
-    update_record("Package", update_values,{field[1]: form_data[field][1], "destination": "Sales"}, (form_data["origin"], form_data["destination"]))
-    
 
+    print("DONE")
+
+    # Convert form data keys to a list
+    fields_list = list(form_data.keys())
+
+    # Construct a dictionary with field-value pairs
+    update_values = {field: form_data[field] for field in fields_list}
+    print(update_values)
+
+    # Update the record
+    update_records("Package", update_values, "Courier_ID = :courier_id", 'CO3924')
+
+    print("Updated")
+  
     html_content = """
     <html>
     <head>

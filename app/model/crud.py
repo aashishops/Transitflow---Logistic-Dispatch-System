@@ -154,7 +154,7 @@ def read_specific_column(table_name, condition_column, condition_value, columns)
         connection.close()
 
 # Function to update a record in a table
-def update_record(table_name, update_values, condition, condition_value):
+def update_records(table_name, update_values, condition, condition_value):
     try:
         connection = establish_connection()
         cursor = connection.cursor()
@@ -164,8 +164,11 @@ def update_record(table_name, update_values, condition, condition_value):
         update_statement += ", ".join([f"{key} = :{key}" for key in update_values.keys()])
         update_statement += f" WHERE {condition}"
 
+        # Merge update_values with condition_values
+        all_values = {**update_values, 'courier_id': condition_value}
+
         # Execute the update statement
-        cursor.execute(update_statement, update_values)
+        cursor.execute(update_statement, all_values)
 
         # Commit the transaction
         connection.commit()
