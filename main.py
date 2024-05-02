@@ -1,11 +1,12 @@
-from fastapi import FastAPI, Request
+from fastapi import FastAPI, Request, Body
 from fastapi.responses import HTMLResponse, RedirectResponse, PlainTextResponse  # Add PlainTextResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 import os
 from fastapi.middleware.cors import CORSMiddleware
 from app.model.generateid import generate_id
-from app.model.crud import insert_values,delete_record,read_table,update_record
+from app.model.crud import insert_values,delete_record,read_table,update_record, read_specific_column
+from pydantic import BaseModel
 # Add this line before defining your FastAPI app
 
 app = FastAPI()
@@ -42,11 +43,82 @@ async def book_shipment(request: Request):
     print(courier_id)
     for field in form_data.keys():
         print(f"Field: {field}, Value: {form_data[field]}")
-    insert_values("PACKAGE", [courier_id,"C001","Chennai","Banglore","abcdefgh","12","1x2x3","I"])
+   
+    insert_values("PACKAGE",[courier_id,"C001",form_data["home_city"],form_data["delivery_city"],form_data["description"],form_data["weight"],form_data["dimensions"],"I"])
     print("Inserted")
     read_table("PACKAGE")
     message = f"Your shipment will be collected on {form_data['pickup_date']} at {form_data['pickup_time']} by our delivery executive."
     return message
+
+@app.get("/trackshipment", response_class=HTMLResponse)
+async def read_contact(request: Request):
+    # Debugging: Print rows to check if it's None or contains data
+    rows = read_specific_column("Package", "Customer_ID", "C001", ["Courier_ID" ,"Origin","Destination" ,"Description" ,"Weight","Dimensions" ,"Courier_Status"])
+    print("Rows:", rows)  # Debugging: Print rows
+    if rows is None:
+        rows = []  # Provide a default empty list if rows is None
+        print(rows)
+    return templates.TemplateResponse("trackshipment.html", {"request": request, "rows": rows})
+
+class CourierIdRequest(BaseModel):
+    courierId: str
+
+@app.post("/deleteShipment")
+async def delete_shipment(request: Request, request_body: CourierIdRequest = Body(...)):
+    courier_id = request_body.courierId
+    delete_record("Package", f"Courier_ID = '{courier_id}'")
+    return {"message": "Shipment canceled successfully."}
+
+
+@app.get("/cancelshipment", response_class=HTMLResponse)
+async def read_cancel(request: Request):
+    # Debugging: Print rows to check if it's None or contains data
+    rows = read_specific_column("Package", "Customer_ID", "C001", ["Courier_ID" ,"Origin","Destination" ,"Description" ,"Weight","Dimensions" ,"Courier_Status"])
+    print("Rows:", rows)  # Debugging: Print rows
+    if rows is None:
+        rows = []  # Provide a default empty list if rows is None
+        print(rows)
+    return templates.TemplateResponse("cancelshipment.html", {"request": request, "rows": rows})
+
+
+@app.post("/updateShipment")
+async def update_shipment(request: Request, request_body: CourierIdRequest = Body(...)):
+    courier_id = request_body.courierId
+    print("Courier ID:", courier_id)
+    # Add your logic here for updating the shipment
+    return {"message": "Shipment updated successfully."}
+
+@app.get("/updateshipment", response_class=HTMLResponse)
+async def read_update(request: Request):
+    rows = read_specific_column("Package", "Customer_ID", "C001",
+                                ["Courier_ID", "Origin", "Destination", "Description", "Weight", "Dimensions",
+                                 "Courier_Status"])
+    print("Rows:", rows)
+    if rows is None:
+        rows = []
+        print(rows)
+    return templates.TemplateResponse("updateshipment.html", {"request": request, "rows": rows})
+
+
+@app.get("/updaterecord")
+async def update_record(request: Request, courier_id: str = None):
+    if courier_id:
+        # Fetch row data corresponding to the provided courier ID
+        row_data = read_specific_column("Package", "Customer_ID", courier_id,
+                                        ["Courier_ID", "Origin", "Destination", "Description", "Weight",
+                                         "Dimensions", "Courier_Status"])
+
+        if row_data:
+            return templates.TemplateResponse("updaterecord.html", {"request": request, "row_data": row_data})
+        else:
+            # Handle case where row data is not found for the provided courier ID
+            return PlainTextResponse("Shipment not found", status_code=404)
+    else:
+        # Handle case where courier ID is missing from the query parameters
+        return PlainTextResponse("Courier ID is missing", status_code=400)
+
+
+
 
 
 @app.get("/home", response_class=HTMLResponse)
@@ -134,20 +206,26 @@ async def read_contact(request: Request):
     return templates.TemplateResponse("service.html", {"request": request}) 
 
 @app.get("/service.html", response_class=HTMLResponse)
-async def redirect_about():
+async def redirect_service():
     return RedirectResponse(url="/service")  # Redirect to the /about route
 
 
-
-
-@app.get("/trackshipment", response_class=HTMLResponse)
-async def read_contact(request: Request):
-    # Render HTML template using Jinja
-    return templates.TemplateResponse("trackshipment.html", {"request": request}) 
-
 @app.get("/trackshipment.html", response_class=HTMLResponse)
-async def redirect_about():
-    return RedirectResponse(url="/trackshipment")  # Redirect to the /about route
+async def redirect_track():
+    return RedirectResponse(url="/trackshipment")  
+
+
+@app.get("/cancelshipment.html", response_class=HTMLResponse)
+async def redirect_cancel():
+    return RedirectResponse(url="/cancelshipment")  
+
+@app.get("/updateshipment.html", response_class=HTMLResponse)
+async def read_update():
+    return RedirectResponse(url="/updateshipment")  
+
+@app.get("/updaterecord.html", response_class=HTMLResponse)
+async def update_record():
+    return RedirectResponse(url="/updaterecord")  
 
 
 

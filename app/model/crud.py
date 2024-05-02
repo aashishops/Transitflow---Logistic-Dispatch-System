@@ -2,7 +2,6 @@ import cx_Oracle
 from datetime import datetime
 
 
-
 # Function to establish database connection
 def establish_connection():
     # Connection details
@@ -31,20 +30,22 @@ def convert_timestamp_values(values):
         converted_values.append(value)
     return converted_values
 
-
-
 # Function to insert values into a table
-# Adjusted insert_values function
 def insert_values(table_name, values):
     try:
         connection = establish_connection()
         cursor = connection.cursor()
+
+        # Convert timestamp values in the input
+        values = convert_timestamp_values(values)
 
         # Prepare the insert statement
         insert_statement = f"INSERT INTO {table_name} VALUES ({', '.join([':' + str(i) for i in range(1, len(values) + 1)])})"
 
         # Execute the insert statement
         cursor.execute(insert_statement, values)
+
+        # Commit the transaction
         connection.commit()
 
         print("Values inserted successfully into table:", table_name)
@@ -58,8 +59,6 @@ def insert_values(table_name, values):
         cursor.close()
         connection.close()
 
-# Example usage:
-
 # Function to delete records from a table
 def delete_record(table_name, condition):
     try:
@@ -71,7 +70,6 @@ def delete_record(table_name, condition):
 
         # Execute the delete statement
         cursor.execute(delete_statement)
-        cursor.execute("commit")
 
         # Commit the transaction
         connection.commit()
@@ -130,6 +128,31 @@ def convert_timestamp_values_in_dict(values_dict):
         converted_values_dict[key] = value
     return converted_values_dict
 
+def read_specific_column(table_name, condition_column, condition_value, columns):
+    try:
+        connection = establish_connection()
+        cursor = connection.cursor()
+
+        # Prepare the select statement with specific columns
+        select_statement = f"SELECT {', '.join(columns)} FROM {table_name} WHERE {condition_column} = :1"
+
+        # Execute the select statement with the condition value
+        cursor.execute(select_statement, (condition_value,))
+
+        # Fetch all rows
+        rows = cursor.fetchall()
+        
+        return rows
+
+    except cx_Oracle.DatabaseError as e:
+        error, = e.args
+        print("Database error -", error)
+
+    finally:
+        # Close the cursor and connection
+        cursor.close()
+        connection.close()
+
 # Function to update a record in a table
 def update_record(table_name, update_values, condition, condition_value):
     try:
@@ -143,7 +166,6 @@ def update_record(table_name, update_values, condition, condition_value):
 
         # Execute the update statement
         cursor.execute(update_statement, update_values)
-        cursor.execute("commit")
 
         # Commit the transaction
         connection.commit()
@@ -166,8 +188,8 @@ def update_record(table_name, update_values, condition, condition_value):
 # insert_values("Transit", ['TR006', 'W', 'Toronto', 'Vancouver','2024-03-28 11:30:00','2024-03-28 12:00:00'])
 # insert_values("user1", ['C012', 'Mical', 'Tailor', 4445256669, 'michael.taylor@example.com', 'qwety'])
 
-# Read the table
-# read_table("ORIGIN_WAREHOUSE")
+# # Read the table
+# # read_table("ORIGIN_WAREHOUSE")
 # print("Table :\n")
 # # read_table("user1")
 
@@ -193,7 +215,3 @@ def update_record(table_name, update_values, condition, condition_value):
 # read_table("user1")
 # Read the table
 # read_table("ORIGIN_WAREHOUSE")
-
-
-insert_values("PACKAGE", ("CO012", "C001", "Chennai", "Bangalore", "abcdefgh", "12", "1x2x3", "I"))
-

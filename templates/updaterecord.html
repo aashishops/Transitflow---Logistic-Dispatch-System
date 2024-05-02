@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Track Shipment</title>
+    <link rel="stylesheet" href="{{ url_for('static', path='css/updateshipment.css') }}"> <!-- Link to your CSS file -->
+
+</head>
+<body>
+    <header>
+        <div class="header">
+            <a href="home.html">
+                <img src="{{ url_for('static', path='img/logo.png') }}" alt="Logo" style="position: absolute; z-index: 0; width: 400px; height: 120px; top : 20px;">
+            </a>
+            <img src="{{ url_for('static', path='img/Header.png') }}" alt="Header Image">
+        </div>
+       
+        <h1>Update Shipment Record</h1>
+        <form id="updateForm">
+            <label for="origin">Origin:</label>
+            <input type="text" id="origin" name="origin" value="{{ row_data.origin }}"><br><br>
+            <input type="text" id="destination" name="destination" value="{{ row_data.destination }}"><br><br>
+            <input type="text" id="description" name="description" value="{{ row_data.description }}"><br><br>
+            <input type="text" id="weight" name="weight" value="{{ row_data.weight }}"><br><br>
+            <input type="text" id="dimensions" name="dimensions" value="{{ row_data.dimensions }}"><br><br>
+            <input type="text" id="status" name="status" value="{{ row_data.courier_status }}"><br><br>
+
+
+            
+            <input type="submit" value="Update">
+        </form>
+    <script>
+        // JavaScript code to extract courier ID from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const courierId = urlParams.get('data');
+
+        // Function to fetch corresponding row data and populate text boxes
+        async function fetchRowDataAndPopulateTextBoxes(courierId) {
+            // Fetch row data using courier ID (you need to implement this function)
+            const rowData = await fetchRowDataByCourierId(courierId);
+
+            // Populate text boxes with row data
+            document.getElementById('origin').value = rowData.origin;
+            document.getElementById('destination').value = rowData.destination;
+            document.getElementById('description').value = rowData.description;
+            document.getElementById('weight').value = rowData.weight;
+            document.getElementById('dimensions').value = rowData.dimensions;
+            document.getElementById('status').value = rowData.courier_status;
+        }
+
+        // Call the function to populate text boxes when the page loads
+        fetchRowDataAndPopulateTextBoxes(courierId);
+    </script>
+</body>
+</html>
