@@ -4,9 +4,13 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 import os
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi import HTTPException
 from app.model.generateid import generate_id
 from app.model.crud import insert_values,delete_record,read_table,update_record, read_specific_column
 from pydantic import BaseModel
+from typing import Optional
+from fastapi import Form
+
 # Add this line before defining your FastAPI app
 
 app = FastAPI()
@@ -100,12 +104,58 @@ async def read_update(request: Request):
         print(rows)
     return templates.TemplateResponse("updateshipment.html", {"request": request, "rows": rows})
 
+@app.get("/updaterecord", response_class=HTMLResponse)
+async def update_record(request: Request, courier_id: Optional[str] = None):
+    # Check if courier ID is provided
+    if courier_id is None:
+        print("NO COURIER ID")
+        # Raise HTTPException with 400 status code for bad request
+        raise HTTPException(status_code=400, detail="Courier ID is missing")
 
-@app.get("/updaterecord")
-async def update_record(request: Request):
+    # Fetch row data based on the courier ID
+    row_data = read_specific_column("Package", "Courier_ID", courier_id,
+                                ["Origin", "Destination", "Description", "Weight", "Dimensions",
+                                 "Courier_Status"])
+    print(courier_id)
+    print("data to be uploaded")
+    print(row_data)
+    if row_data is None:
+        # Handle the case where no row data is found
+        raise HTTPException(status_code=404, detail="Row data not found")
 
-     return templates.TemplateResponse("updaterecord.html", {"request": request})
+    return templates.TemplateResponse("updaterecord.html", {"request": request, "row_data": row_data})
 
+@app.post("/toupdateShipment",response_class=HTMLResponse)
+async def to_update_shipment(request: Request):
+    form_data = await request.form()
+    for field in form_data.keys():
+        print(f"Field: {field}, Value: {form_data[field]}")
+    print("DONE")
+    keys_list = list(form_data.keys())
+    update_record("Package", update_values,{field[1]: form_data[field][1], "destination": "Sales"}, (form_data["origin"], form_data["destination"]))
+    
+
+    html_content = """
+    <html>
+    <head>
+        <title>Shipment Update</title>
+    </head>
+    <body>
+        <h1>Shipment updated successfully</h1>
+        <p>Thank you for updating the shipment.</p>
+    </body>
+    </html>
+    """
+    return html_content
+    
+
+
+
+
+
+@app.get("/updaterecord.html", response_class=HTMLResponse)
+async def redirect_to_update_record():
+    return RedirectResponse(url="/updaterecord?courier_id=CO3924")
 
 
 

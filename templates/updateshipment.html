@@ -53,6 +53,7 @@
                 .then(response => {
                     if (response.ok) {
                         console.log("Shipment updated successfully");
+                        window.location.href = 'updaterecord.html';
                     } else {
                         console.error("Failed to update shipment");
                     }

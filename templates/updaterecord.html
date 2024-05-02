@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Track Shipment</title>
     <link rel="stylesheet" href="{{ url_for('static', path='css/updateshipment.css') }}"> <!-- Link to your CSS file -->
-
 </head>
 <body>
     <header>
@@ -17,19 +16,24 @@
         </div>
        
         <h1>Update Shipment Record</h1>
-        <form id="updateForm">
+        
+
+        <form id="updateForm" action="/toupdateShipment" method="POST">
             <label for="origin">Origin:</label>
-            <input type="text" id="origin" name="origin" value="{{ row_data.origin }}"><br><br>
-            <input type="text" id="destination" name="destination" value="{{ row_data.destination }}"><br><br>
-            <input type="text" id="description" name="description" value="{{ row_data.description }}"><br><br>
-            <input type="text" id="weight" name="weight" value="{{ row_data.weight }}"><br><br>
-            <input type="text" id="dimensions" name="dimensions" value="{{ row_data.dimensions }}"><br><br>
-            <input type="text" id="status" name="status" value="{{ row_data.courier_status }}"><br><br>
+            <input type="text" id="origin" name="origin" value="{{ row_data[0][0] }}"><br><br>
+            <label for="destination">Destination:</label>
+            <input type="text" id="destination" name="destination" value="{{ row_data[0][1] }}"><br><br>
+            <label for="description">Description:</label>
+            <input type="text" id="description" name="description" value="{{ row_data[0][2] }}"><br><br>
+            <label for="weight">Weight:</label>
+            <input type="text" id="weight" name="weight" value="{{ row_data[0][3] }}"><br><br>
+            <label for="dimensions">Dimensions:</label>
+            <input type="text" id="dimensions" name="dimensions" value="{{ row_data[0][4] }}" pattern="\d+\s*x\s*\d+\s*x\s*\d+"><br><br>
 
-
-            
             <input type="submit" value="Update">
         </form>
+    </header>
+
     <script>
         // JavaScript code to extract courier ID from URL
         const urlParams = new URLSearchParams(window.location.search);
@@ -51,6 +55,34 @@
 
         // Call the function to populate text boxes when the page loads
         fetchRowDataAndPopulateTextBoxes(courierId);
+    </script>
+
+    <script>
+        document.getElementById('updateForm').addEventListener('submit', async function(event) {
+            event.preventDefault(); // Prevent default form submission behavior
+
+            // Get form data
+            const formData = new FormData(this);
+
+            try {
+                const response = await fetch('/toupdateShipment', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                if (response.ok) {
+                    const responseData = await response.json();
+                    console.log(responseData.message); // Log the response message
+                    // Handle any further actions you need after successful submission
+                } else {
+                    console.error('Failed to update shipment.');
+                    // Handle error cases if needed
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                // Handle any unexpected errors
+            }
+        });
     </script>
 </body>
 </html>
