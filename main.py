@@ -90,6 +90,7 @@ async def update_shipment(request: Request, request_body: CourierIdRequest = Bod
 
 @app.get("/updateshipment", response_class=HTMLResponse)
 async def read_update(request: Request):
+    # Assume this function returns rows from the database
     rows = read_specific_column("Package", "Customer_ID", "C001",
                                 ["Courier_ID", "Origin", "Destination", "Description", "Weight", "Dimensions",
                                  "Courier_Status"])
@@ -101,22 +102,9 @@ async def read_update(request: Request):
 
 
 @app.get("/updaterecord")
-async def update_record(request: Request, courier_id: str = None):
-    if courier_id:
-        # Fetch row data corresponding to the provided courier ID
-        row_data = read_specific_column("Package", "Customer_ID", courier_id,
-                                        ["Courier_ID", "Origin", "Destination", "Description", "Weight",
-                                         "Dimensions", "Courier_Status"])
+async def update_record(request: Request):
 
-        if row_data:
-            return templates.TemplateResponse("updaterecord.html", {"request": request, "row_data": row_data})
-        else:
-            # Handle case where row data is not found for the provided courier ID
-            return PlainTextResponse("Shipment not found", status_code=404)
-    else:
-        # Handle case where courier ID is missing from the query parameters
-        return PlainTextResponse("Courier ID is missing", status_code=400)
-
+     return templates.TemplateResponse("updaterecord.html", {"request": request})
 
 
 
@@ -224,8 +212,9 @@ async def read_update():
     return RedirectResponse(url="/updateshipment")  
 
 @app.get("/updaterecord.html", response_class=HTMLResponse)
-async def update_record():
+async def read_update_record():
     return RedirectResponse(url="/updaterecord")  
+
 
 
 
