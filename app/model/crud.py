@@ -1,7 +1,6 @@
 import cx_Oracle
 from datetime import datetime
 
-
 # Function to establish database connection
 def establish_connection():
     # Connection details

@@ -77,7 +77,7 @@ background-color: rgba(255, 255, 255, 0.1);
     background: linear-gradient(to right, #9BAFD9, #103783); /* Gradient background */
     color: #fff;
     text-align: left;
-    padding: 120px 0; /* Increased padding for larger banner */
+    padding: 120px 50px; /* Increased padding for larger banner */
     position: relative; /* Added positioning for child elements */
     overflow: hidden; /* Hides the overflow for the curved effect */
 }

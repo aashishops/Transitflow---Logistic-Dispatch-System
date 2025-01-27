@@ -143,7 +143,7 @@ async def to_update_shipment(request: Request):
     print(update_values)
 
     # Update the record
-    update_records("Package", update_values, "Courier_ID = :courier_id", 'CO3924')
+    update_records("Package", update_values, "Courier_ID = :courier_id", 'CO2086')
 
     print("Updated")
   
@@ -167,9 +167,7 @@ async def to_update_shipment(request: Request):
 
 @app.get("/updaterecord.html", response_class=HTMLResponse)
 async def redirect_to_update_record():
-    return RedirectResponse(url="/updaterecord?courier_id=CO3924")
-
-
+    return RedirectResponse(url="/updaterecord?courier_id=CO2086")
 
 @app.get("/home", response_class=HTMLResponse)
 async def read_home(request: Request):
@@ -188,7 +186,6 @@ async def read_about(request: Request):
 @app.get("/about.html", response_class=HTMLResponse)
 async def redirect_about():
     return RedirectResponse(url="/about")  # Redirect to the /about route
-
 
 @app.get("/booked", response_class=HTMLResponse)
 async def read_contact(request: Request):

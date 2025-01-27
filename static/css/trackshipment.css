@@ -70,8 +70,10 @@ body {
 /* Table Styles */
 table {
     width: 200%;
+    float: left;
     border-collapse: collapse;
-    margin-top: 20px;
+    margin-top: -10px;
+    margin-left : -200px;
     color : #fff;
 }
 

@@ -71,9 +71,11 @@ body {
 table {
     width: 200%;
     border-collapse: collapse;
-    margin-top: 20px;
+    margin-top: 500px;
+    margin-left : -200px;
     color : #fff;
 }
+
 
 table th, table td {
     padding: 15px;
